@@ -1,8 +1,10 @@
 package com.grab.store.service;
 
 import com.grab.store.model.Customer;
+import com.grab.store.model.Item;
 import com.grab.store.repo.CartDAO;
 import com.grab.store.repo.CustomerDAO;
+import com.grab.store.repo.ItemDAO;
 import com.grab.store.model.Cart;
 
 import com.grab.store.service.CustomerService;
@@ -20,6 +22,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private CartDAO cartRepository;
+    
+    @Autowired 
+    private ItemDAO itemRepository;
 
     @Override
     public List<Customer> getAllCustomers() {
@@ -51,7 +56,46 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Cart addCart(Cart cart) {
+    public Cart saveCart(Cart cart) {
+        // Save or update the cart
         return cartRepository.save(cart);
     }
+    
+    @Override
+    public Cart addItemByIdForCart(Integer cartId, Integer itemId) {
+        // Fetch the cart and item
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new RuntimeException("Cart not found"));
+        
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow(() -> new RuntimeException("Item not found"));
+        
+        // Add item to the cart's item list
+        cart.getItemList().add(item);
+        
+        // Save the updated cart
+        return cartRepository.save(cart);
+    }
+    
+    @Override
+    public Cart clearCart(Integer cartId) {
+        // Fetch the cart
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new RuntimeException("Cart not found"));
+        
+        // Clear all items from the cart
+        cart.getItemList().clear();
+        
+        // Save the updated cart
+        return cartRepository.save(cart);
+    }
+    
+    @Override
+    public Cart viewCart(Integer cartId) {
+        // Fetch and return the cart
+        return cartRepository.findById(cartId)
+                .orElseThrow(() -> new RuntimeException("Cart not found"));
+    }
+    
+    
 }

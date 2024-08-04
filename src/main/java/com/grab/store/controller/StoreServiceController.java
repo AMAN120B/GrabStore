@@ -20,7 +20,9 @@ public class StoreServiceController {
     @Autowired
     private StoreService storeService;
 
-    // Admin routes
+//    @Autowired
+//    private ItemService itemService;
+//    // Admin routes
 
     @GetMapping("/admin/stores")
     public ResponseEntity<List<Store>> getAllStores() {
@@ -166,15 +168,16 @@ public class StoreServiceController {
         }
     }
 
-    @PostMapping("/store/items")
-    public ResponseEntity<?> addItemStore(@RequestBody Item item) {
+    @PostMapping("/store/{storeId}/items")
+    public ResponseEntity<?> addItemToStore(@PathVariable Integer storeId, @RequestBody Item item) {
         try {
-            Item itemAdded = storeService.addItem(item);
+            Item itemAdded = storeService.addItemById(storeId, item);
             return new ResponseEntity<>(itemAdded, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Item already exists or invalid data", HttpStatus.BAD_REQUEST);
         }
     }
+
 
     @GetMapping("/store/items")
     public ResponseEntity<List<Item>> getAllItemsStore() {
@@ -182,6 +185,19 @@ public class StoreServiceController {
         return new ResponseEntity<>(allItems, HttpStatus.OK);
     }
 
+    @GetMapping("/store/{storeId}/items")
+    public ResponseEntity<?> getItemsByStoreId(@PathVariable Integer storeId) {
+        Optional<Store> storeOpt = storeService.getStoreById(storeId);
+        if (storeOpt.isPresent()) {
+            List<Item> items = storeOpt.get().getItemList();
+            return new ResponseEntity<>(items, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Store not found", HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    
     @GetMapping("/store/items/{itemId}")
     public ResponseEntity<?> getItemByIdStore(@PathVariable int itemId) {
         try {

@@ -18,7 +18,17 @@ public interface CustomerService {
 
     void deleteCustomer(Integer id);
 
-    Cart addCart(Cart cart);
+//    Cart addCart(Cart cart);
+//    
+//    Cart getCartById(Integer cartId) throws Exception;
     
+    
+    Cart saveCart(Cart cart);
+	
+	Cart addItemByIdForCart(Integer cartId, Integer itemId);
+	
+	Cart clearCart(Integer cartId);
+	
+	Cart viewCart(Integer cartId);
 }
 

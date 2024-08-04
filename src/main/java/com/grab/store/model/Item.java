@@ -2,6 +2,7 @@ package com.grab.store.model;
 
 
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,7 +19,7 @@ public class Item {
 	private Integer quantity;
 	private Double cost;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Category category;
 
 	public Item() {

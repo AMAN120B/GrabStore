@@ -50,6 +50,14 @@ public class OrderServiceController {
             return new ResponseEntity<>("Order already exists or invalid data", HttpStatus.BAD_REQUEST);
         }
     }
+//    public ResponseEntity<?> addOrder(@RequestBody OrderDetails orderDetails) {
+//        try {
+//            OrderDetails orderAdded = orderService.addOrder(orderDetails);
+//            return new ResponseEntity<>(orderAdded, HttpStatus.CREATED);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>("Order already exists or invalid data", HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
     @PutMapping("/admin/orders/{orderId}")
     public ResponseEntity<?> updateOrder(@RequestBody OrderDetails orderDetails, @PathVariable int orderId) {

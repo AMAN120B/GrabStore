@@ -26,4 +26,7 @@ public interface StoreService {
     Optional<Item> getItemById(Integer id);
 
     Category addCategory(Category category);
+    
+    Item addItemById(Integer storeId, Item item) throws Exception;
+   
 }

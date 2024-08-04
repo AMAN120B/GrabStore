@@ -60,6 +60,16 @@ public class StoreServiceImpl implements StoreService {
     public Item addItem(Item item) {
         return itemRepository.save(item);
     }
+    
+    @Override
+    public Item addItemById(Integer storeId, Item item) throws Exception {
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new Exception("Store not found"));
+        store.getItemList().add(item);
+        itemRepository.save(item); // Save the item separately if you need to
+        storeRepository.save(store); // Save the store to update its item list
+        return item;
+    }
 
     @Override
     public List<Item> getAllItems() {

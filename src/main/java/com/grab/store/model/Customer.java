@@ -24,63 +24,69 @@ public class Customer {
     @JsonIgnore
     private Cart cart;
 
-    public Customer() {
-        super();
-    }
+	public Customer() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    public Customer(Integer customerId, String customerName, String mobileNumber, String email) {
-        super();
-        this.customerId = customerId;
-        this.customerName = customerName;
-        this.mobileNumber = mobileNumber;
-        this.email = email;
-    }
+	public Customer(Integer customerId, String customerName, String mobileNumber, String email, Address address,
+			Cart cart) {
+		super();
+		this.customerId = customerId;
+		this.customerName = customerName;
+		this.mobileNumber = mobileNumber;
+		this.email = email;
+		this.address = address;
+		this.cart = cart;
+	}
 
-    public Integer getCustomerId() {
-        return customerId;
-    }
+	public Integer getCustomerId() {
+		return customerId;
+	}
 
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
-    }
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
+	}
 
-    public String getCustomerName() {
-        return customerName;
-    }
+	public String getCustomerName() {
+		return customerName;
+	}
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
 
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
 
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
-    }
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public Address getAddress() {
-        return address;
-    }
+	public Address getAddress() {
+		return address;
+	}
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 
-    public Cart getCart() {
-        return cart;
-    }
+	public Cart getCart() {
+		return cart;
+	}
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
+
+   
 }

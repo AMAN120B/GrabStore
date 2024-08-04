@@ -2,8 +2,10 @@ package com.grab.store.service;
 
 import com.grab.store.model.OrderDetails;
 import com.grab.store.repo.BillDAO;
+import com.grab.store.repo.CartDAO;
 import com.grab.store.repo.OrderDetailsDAO;
 import com.grab.store.model.Bill;
+import com.grab.store.model.Cart;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,9 @@ public class OrderServiceImpl implements OrderService{
 
     @Autowired
     private BillDAO billDAO;
+    
+    @Autowired 
+    private CartDAO cartRepository;
 
     public List<OrderDetails> getAllOrders() {
         return orderDetailsDAO.findAll();
@@ -28,7 +33,19 @@ public class OrderServiceImpl implements OrderService{
         return orderDetailsDAO.findById(id);
     }
 
+//    public OrderDetails addOrder(OrderDetails orderDetails) {
+//        return orderDetailsDAO.save(orderDetails);
+//    }
+    
     public OrderDetails addOrder(OrderDetails orderDetails) {
+        // Retrieve the existing cart by ID
+        Cart existingCart = cartRepository.findById(orderDetails.getCart().getCartId())
+            .orElseThrow(() -> new RuntimeException("Cart not found"));
+
+        // Set the existing cart to the order
+        orderDetails.setCart(existingCart);
+
+        // Save the order
         return orderDetailsDAO.save(orderDetails);
     }
 
